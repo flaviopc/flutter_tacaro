@@ -1,26 +1,45 @@
 import 'package:flutter/material.dart';
-
+import 'package:ta_caro/shared/themes/app_text_styles.dart';
 import 'package:ta_caro/shared/themes/app_theme.dart';
 import 'package:ta_caro/shared/widgets/button/button.dart';
 import 'package:ta_caro/shared/widgets/input_text/input_text.dart';
 
-class LoginPage extends StatelessWidget {
-  const LoginPage({Key? key}) : super(key: key);
+class CreateAccountPage extends StatelessWidget {
+  const CreateAccountPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppTheme.colors.background,
+      appBar: AppBar(
+        backgroundColor: AppTheme.colors.background,
+        elevation: 0,
+        leading: BackButton(
+          color: AppTheme.colors.backButton,
+        ),
+      ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 36),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Image.asset(
-                "assets/images/logo.png",
-                width: 200,
+              Text(
+                "Criar conta",
+                style: AppTheme.textStyles.title,
               ),
+              SizedBox(height: 10),
+              Text(
+                "Mantenha seus gastos em dia",
+                style: AppTheme.textStyles.subtitle,
+              ),
+              SizedBox(height: 20),
+              InputText(
+                label: "Nome",
+                hint: "Informe seu nome",
+              ),
+              SizedBox(height: 18),
               InputText(
                 label: "E-mail",
                 hint: "Informe seu e-mail",
@@ -32,16 +51,9 @@ class LoginPage extends StatelessWidget {
               ),
               SizedBox(height: 18),
               Button(
-                label: "Entrar",
-                type: ButtonType.fill,
-                onTap: () => print("clicou"),
-              ),
-              SizedBox(height: 30),
-              Button(
                 label: "Criar conta",
-                type: ButtonType.outline,
-                onTap: () =>
-                    Navigator.pushNamed(context, "/login/create-account"),
+                type: ButtonType.fill,
+                onTap: () {},
               ),
             ],
           ),
