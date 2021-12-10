@@ -13,10 +13,32 @@ class CreateAccountPage extends StatefulWidget {
 
 class _CreateAccountPageState extends State<CreateAccountPage> {
   final controller = CreateAccountController();
+  final scaffoldKey = GlobalKey<ScaffoldState>();
+  @override
+  void initState() {
+    controller.addListener(() {
+      controller.appState.when(
+          success: (value) => print(value),
+          error: (message, _) =>
+              scaffoldKey.currentState!.showBottomSheet((context) => Container(
+                    height: 20,
+                    child: Center(child: Text(message)),
+                  )),
+          orElse: () {});
+    });
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: scaffoldKey,
       backgroundColor: AppTheme.colors.background,
       appBar: AppBar(
         backgroundColor: AppTheme.colors.background,
@@ -64,11 +86,21 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                   onChanged: (value) => controller.onChange(password: value),
                 ),
                 SizedBox(height: 18),
-                Button(
-                  label: "Criar conta",
-                  type: ButtonType.fill,
-                  onTap: () => controller.create(),
-                ),
+                AnimatedBuilder(
+                    animation: controller,
+                    builder: (_, __) => controller.appState.when(
+                          loading: () => Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              CircularProgressIndicator(),
+                            ],
+                          ),
+                          orElse: () => Button(
+                            label: "Criar conta",
+                            type: ButtonType.fill,
+                            onTap: () => controller.create(),
+                          ),
+                        )),
               ],
             ),
           ),

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:ta_caro/shared/utils/app_state.dart';
 import 'package:validators/validators.dart';
 
-class CreateAccountController {
+class CreateAccountController extends ChangeNotifier {
+  AppState appState = AppState.empty();
   final formKey = GlobalKey<FormState>();
   String _name = "";
   String _email = "";
@@ -30,7 +32,20 @@ class CreateAccountController {
     return false;
   }
 
-  void create() {
-    if (validate()) {}
+  void update(AppState state) {
+    this.appState = state;
+    notifyListeners();
+  }
+
+  Future<void> create() async {
+    if (validate()) {
+      try {
+        update(AppState.loading());
+        await Future.delayed(Duration(seconds: 4));
+        update(AppState.success<String>("Criado"));
+      } catch (e) {
+        update(AppState.error("Não foi possivel criar"));
+      }
+    }
   }
 }
