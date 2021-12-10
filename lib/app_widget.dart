@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ta_caro/modules/splash/splash_page.dart';
+import 'modules/splash/splash_page.dart';
+import 'modules/login/login_page.dart';
 
 class AppWidget extends StatelessWidget {
   @override
@@ -10,7 +11,7 @@ class AppWidget extends StatelessWidget {
       initialRoute: "/splash",
       routes: {
         "/splash": (context) => const SplashPage(),
-        "/login": (context) => Container(),
+        "/login": (context) => const LoginPage(),
       },
     );
   }
