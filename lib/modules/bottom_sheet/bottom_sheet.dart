@@ -3,6 +3,7 @@ import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
 import 'package:flutter_multi_formatter/formatters/money_input_formatter.dart';
 import 'package:ta_caro/modules/bottom_sheet/bottom_sheet_controller.dart';
 import 'package:ta_caro/modules/bottom_sheet/repositories/order_repository_impl.dart';
+import 'package:ta_caro/shared/services/app_database.dart';
 import 'package:ta_caro/shared/services/supabase_database.dart';
 import 'package:ta_caro/shared/widgets/button/button.dart';
 import 'package:ta_caro/shared/widgets/input_text/input_text.dart';
@@ -20,7 +21,7 @@ class _AppBottomSheetState extends State<AppBottomSheet> {
   @override
   void initState() {
     controller = BottomSheetController(
-        repository: OrderRepositoryImpl(database: SupabaseDatabase()));
+        repository: OrderRepositoryImpl(database: AppDatabase.instance));
     controller.addListener(() {
       controller.appState
           .when(success: (_) => Navigator.pop(context), orElse: () {});

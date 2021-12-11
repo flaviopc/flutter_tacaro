@@ -79,7 +79,9 @@ class SupabaseDatabase implements AppDatabase {
   Future<List<Map<String, dynamic>>> getAll(String table) async {
     final response = await client.from("orders").select().execute();
     if (response.error == null) {
-      return response.data;
+      return (response.data as List<dynamic>)
+          .map((e) => e as Map<String, dynamic>)
+          .toList();
     } else {
       throw Exception("Usuário não encotrado!");
     }

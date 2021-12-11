@@ -1,3 +1,5 @@
+import 'package:ta_caro/shared/models/order_model.dart';
+
 abstract class IFeedRepository {
-  Future<List<Map<String, dynamic>>> getAll();
+  Future<List<OrderModel>> getAll();
 }

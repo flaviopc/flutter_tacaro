@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+
+import 'package:ta_caro/shared/models/order_model.dart';
 import 'package:ta_caro/shared/themes/app_theme.dart';
 
 class AppListTile extends StatelessWidget {
+  final OrderModel order;
   const AppListTile({
     Key? key,
+    required this.order,
   }) : super(key: key);
 
   @override
@@ -20,16 +24,16 @@ class AppListTile extends StatelessWidget {
             backgroundColor: AppTheme.colors.background,
             radius: 30,
             child: Text(
-              "12/11",
+              order.created.substring(5).replaceAll("-", "/"),
               style: AppTheme.textStyles.label,
             ),
           ),
           title: Text(
-            "Produt",
+            order.name,
             style: AppTheme.textStyles.titleListTile,
           ),
           subtitle: Text(
-            "preço",
+            "R\$ ${order.price.toStringAsFixed(2)}",
             style: AppTheme.textStyles.subtitleListTile,
           ),
           trailing: PopupMenuButton(
