@@ -26,6 +26,7 @@ class InputText extends StatelessWidget {
           height: 12,
         ),
         TextFormField(
+          onChanged: onChanged,
           obscureText: obscure,
           validator: (value) {
             if (validator != null) return validator!(value ?? "");
