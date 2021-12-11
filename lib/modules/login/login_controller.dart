@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ta_caro/modules/login/repositories/login_repository.dart';
+import 'package:ta_caro/shared/models/user_model.dart';
 import 'package:ta_caro/shared/utils/app_state.dart';
 import 'package:validators/validators.dart';
 
@@ -41,10 +42,11 @@ class LoginController extends ChangeNotifier {
     if (validate()) {
       try {
         update(AppState.loading());
-        await repository.login(email: _email, password: _password);
-        update(AppState.success<String>("Logado"));
+        final response =
+            await repository.login(email: _email, password: _password);
+        update(AppState.success<UserModel>(response));
       } catch (e) {
-        update(AppState.error("Erro ao fazer login"));
+        update(AppState.error(e.toString()));
       }
     }
   }

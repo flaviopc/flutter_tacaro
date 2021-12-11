@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ta_caro/modules/login/repositories/login_repository.dart';
+import 'package:ta_caro/shared/models/user_model.dart';
 import 'package:ta_caro/shared/utils/app_state.dart';
 import 'package:validators/validators.dart';
 
@@ -45,11 +46,11 @@ class CreateAccountController extends ChangeNotifier {
     if (validate()) {
       try {
         update(AppState.loading());
-        await repository.createAccount(
+        final response = await repository.createAccount(
             name: _name, email: _email, password: _password);
-        update(AppState.success<String>("Criado"));
+        update(AppState.success<UserModel>(response));
       } catch (e) {
-        update(AppState.error("Não foi possivel criar"));
+        update(AppState.error(e.toString()));
       }
     }
   }

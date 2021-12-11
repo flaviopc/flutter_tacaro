@@ -1,5 +1,7 @@
+import 'package:ta_caro/shared/models/user_model.dart';
+
 abstract class LoginRepository {
-  Future<bool> login({required String email, required String password});
-  Future<bool> createAccount(
+  Future<UserModel> login({required String email, required String password});
+  Future<UserModel> createAccount(
       {required String name, required String email, required String password});
 }
