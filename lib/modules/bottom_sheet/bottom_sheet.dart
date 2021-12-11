@@ -21,7 +21,17 @@ class _AppBottomSheetState extends State<AppBottomSheet> {
   void initState() {
     controller = BottomSheetController(
         repository: OrderRepositoryImpl(database: SupabaseDatabase()));
+    controller.addListener(() {
+      controller.appState
+          .when(success: (_) => Navigator.pop(context), orElse: () {});
+    });
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
   }
 
   @override
@@ -73,11 +83,18 @@ class _AppBottomSheetState extends State<AppBottomSheet> {
               SizedBox(
                 height: 20,
               ),
-              Button(
-                  label: "Adicionar",
-                  onTap: () {
-                    controller.create();
-                  }),
+              AnimatedBuilder(
+                animation: controller,
+                builder: (_, __) => controller.appState.when(
+                  loading: () => CircularProgressIndicator(),
+                  error: (message, _) => Text(message),
+                  orElse: () => Button(
+                      label: "Adicionar",
+                      onTap: () {
+                        controller.create();
+                      }),
+                ),
+              ),
             ],
           ),
         ),

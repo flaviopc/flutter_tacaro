@@ -74,4 +74,14 @@ class SupabaseDatabase implements AppDatabase {
     if (response.error != null) throw Exception(response.error?.message);
     return true;
   }
+
+  @override
+  Future<List<Map<String, dynamic>>> getAll(String table) async {
+    final response = await client.from("orders").select().execute();
+    if (response.error == null) {
+      return response.data;
+    } else {
+      throw Exception("Usuário não encotrado!");
+    }
+  }
 }
