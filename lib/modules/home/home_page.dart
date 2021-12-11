@@ -38,7 +38,9 @@ class _HomePageState extends State<HomePage> {
                 child: ListView.builder(
                   itemCount: 2,
                   scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) => CardProduct(),
+                  itemBuilder: (context, index) => CardProduct(
+                    like: index % 2 == 0,
+                  ),
                 ),
               ),
               AppListTile(),
