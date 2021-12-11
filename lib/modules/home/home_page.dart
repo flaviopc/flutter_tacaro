@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ta_caro/modules/bottom_sheet/bottom_sheet.dart';
 
 import 'package:ta_caro/modules/feed/feed_page.dart';
 import 'package:ta_caro/shared/themes/app_theme.dart';
@@ -21,7 +22,15 @@ class _HomePageState extends State<HomePage> {
   var currentIndex = 0;
   void changeIndex(int index) {
     if (index == 3) {
-      //
+      showModalBottomSheet(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(32),
+              topRight: Radius.circular(32),
+            ),
+          ),
+          context: context,
+          builder: (context) => AppBottomSheet());
     } else {
       currentIndex = index;
       setState(() {});
