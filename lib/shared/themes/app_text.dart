@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'app_theme.dart';
 
-class TextExtension {}
+//class TextExtension {}
 
 extension TextExt on Text {
   Text get label => Text(

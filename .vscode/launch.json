@@ -7,7 +7,11 @@
         {
             "name": "ta_caro",
             "request": "launch",
-            "type": "dart"
+            "type": "dart",
+            "args": [
+                "--dart-define","URL=https://vconctldrmcpzgolwnrk.supabase.co",
+                "--dart-define","KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTYzOTE3ODQ2MSwiZXhwIjoxOTU0NzU0NDYxfQ.sN-giFIvGJziY2_QnHpockEj1Gx5efQsLcAB0WqhhJs",
+            ]
         },
         {
             "name": "ta_caro (profile mode)",

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ta_caro/modules/login/pages/create_account/create_account_controller.dart';
+import 'package:ta_caro/modules/login/repositories/login_repository_impl.dart';
+import 'package:ta_caro/shared/services/app_database.dart';
 import 'package:ta_caro/shared/themes/app_theme.dart';
 import 'package:ta_caro/shared/widgets/button/button.dart';
 import 'package:ta_caro/shared/widgets/input_text/input_text.dart';
@@ -12,13 +14,15 @@ class CreateAccountPage extends StatefulWidget {
 }
 
 class _CreateAccountPageState extends State<CreateAccountPage> {
-  final controller = CreateAccountController();
+  late final CreateAccountController controller;
   final scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   void initState() {
+    controller = CreateAccountController(
+        repository: LoginRespositoryImpl(database: AppDatabase.instance));
     controller.addListener(() {
       controller.appState.when(
-          success: (value) => print(value),
+          success: (value) => Navigator.pushReplacementNamed(context, "/home"),
           error: (message, _) =>
               scaffoldKey.currentState!.showBottomSheet((context) => Container(
                     height: 20,
