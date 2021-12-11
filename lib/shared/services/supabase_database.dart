@@ -66,4 +66,12 @@ class SupabaseDatabase implements AppDatabase {
       throw Exception("Usuário não encotrado!");
     }
   }
+
+  @override
+  Future<bool> create(
+      {required String table, required Map<String, dynamic> data}) async {
+    final response = await client.from(table).insert(data).execute();
+    if (response.error != null) throw Exception(response.error?.message);
+    return true;
+  }
 }
