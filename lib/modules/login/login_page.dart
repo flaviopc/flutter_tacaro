@@ -24,7 +24,11 @@ class _LoginPageState extends State<LoginPage> {
         repository: LoginRespositoryImpl(database: AppDatabase.instance));
     controller.addListener(() {
       controller.appState.when(
-        success: (value) => Navigator.pushReplacementNamed(context, "/home"),
+        success: (value) => Navigator.pushReplacementNamed(
+          context,
+          "/home",
+          arguments: value,
+        ),
         error: (message, _) =>
             scaffoldKey.currentState!.showBottomSheet((context) => Container(
                   height: 20,

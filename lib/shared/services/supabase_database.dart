@@ -22,11 +22,12 @@ class SupabaseDatabase implements AppDatabase {
       required String password}) async {
     final response = await client.auth.signUp(email, password);
     if (response.error == null) {
-      final user = UserModel.fromMap(response.user!.toJson());
+      final user = UserModel(email: email, id: response.user!.id, name: name);
+      await createUser(user);
       return user;
     } else {
       throw Exception(
-          response.error!.message ?? "Não foi possivel criar conta!");
+          response.error?.message ?? "Não foi possivel criar conta!");
     }
   }
 
@@ -35,11 +36,34 @@ class SupabaseDatabase implements AppDatabase {
       {required String email, required String password}) async {
     final response = await client.auth.signIn(email: email, password: password);
     if (response.error == null) {
-      final user = UserModel.fromMap(response.user!.toJson());
+      final user = await getUser(
+          response.user!.id); //UserModel.fromMap(response.user!.toJson());
       return user;
     } else {
       throw Exception(
-          response.error!.message ?? "Não foi possivel fazer login!");
+          response.error?.message ?? "Não foi possivel fazer login!");
+    }
+  }
+
+  @override
+  Future<UserModel> createUser(UserModel user) async {
+    final response = await client.from("users").insert(user.toMap()).execute();
+    if (response.error == null) {
+      return user;
+    } else {
+      throw Exception("Usuário não encotrado!");
+    }
+  }
+
+  @override
+  Future<UserModel> getUser(String id) async {
+    final response =
+        await client.from("users").select().filter("id", "eq", id).execute();
+    if (response.error == null) {
+      final user = UserModel.fromMap(response.data[0]);
+      return user;
+    } else {
+      throw Exception("Usuário não encotrado!");
     }
   }
 }
