@@ -30,12 +30,12 @@ class AppBottomNavigator extends StatelessWidget {
               enabled: currentIndex == 0),
           ItemBottomNavigator(
               icon: Icons.add_box,
-              onTap: () => onChanged(1),
-              enabled: currentIndex == 1),
+              onTap: () => onChanged(3),
+              enabled: currentIndex == 3),
           ItemBottomNavigator(
               icon: Icons.settings,
-              onTap: () => onChanged(2),
-              enabled: currentIndex == 2),
+              onTap: () => onChanged(1),
+              enabled: currentIndex == 1),
         ],
       ),
     );
