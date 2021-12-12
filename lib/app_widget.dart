@@ -13,15 +13,14 @@ class AppWidget extends StatelessWidget {
     return MaterialApp(
       title: "Flutter",
       theme: ThemeData(primarySwatch: Colors.green),
-      initialRoute: "/home",
+      initialRoute: "/splash",
       routes: {
         "/splash": (context) => const SplashPage(),
         "/login": (context) => const LoginPage(),
         "/login/create-account": (context) => const CreateAccountPage(),
         "/home": (context) => HomePage(
-              pages: [FeedPage(), ProfilePage()],
-            )
-        //  user: ModalRoute.of(context)?.settings.arguments as UserModel),
+            pages: [FeedPage(), ProfilePage()],
+            user: ModalRoute.of(context)?.settings.arguments as UserModel),
       },
     );
   }
