@@ -22,6 +22,7 @@ class _FeedPageState extends State<FeedPage> {
     controller = FeedController(
         repository: FeedRepositoryImpl(database: AppDatabase.instance));
     controller.getData();
+    print("entrou feed");
     super.initState();
   }
 
@@ -36,6 +37,7 @@ class _FeedPageState extends State<FeedPage> {
           builder: (_, __) => controller.appState.when(
             success: (value) {
               final orders = value as List<OrderModel>;
+              final products = controller.products;
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -47,7 +49,7 @@ class _FeedPageState extends State<FeedPage> {
                       children: [
                         CardChart(
                           value: controller.total,
-                          percent: 0.8,
+                          percent: controller.calcChart(products),
                         ),
                         SizedBox(
                           height: 12,
@@ -63,10 +65,10 @@ class _FeedPageState extends State<FeedPage> {
                     height: 126,
                     width: MediaQuery.of(context).size.width,
                     child: ListView.builder(
-                      itemCount: 2,
+                      itemCount: products.length,
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index) => CardProduct(
-                        like: index % 2 == 0,
+                        product: products[index],
                       ),
                     ),
                   ),
